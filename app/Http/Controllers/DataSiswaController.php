@@ -15,6 +15,62 @@ use Illuminate\Support\Facades\Validator;
 
 class DataSiswaController extends Controller
 {
+  public function data_siswa_admin_hapus(Request $request){
+    $data=UserDetail::where('id_user_detail','=',$request->id)->first();
+    try {
+      if (File::exists(public_path('storage/ijazah/' . $data->ijazah))) {
+        File::delete(public_path('storage/ijazah/' . $data->ijazah));
+        File::delete(public_path('storage/skhun/' . $data->skhun));
+        File::delete(public_path('storage/kk/' . $data->kk));
+        File::delete(public_path('storage/akta_kelahiran/' . $data->akta_kelahiran));
+        File::delete(public_path('storage/foto/' . $data->foto));
+        File::delete(public_path('storage/surat_keterangan_lulus/' . $data->surat_keterangan_lulus));
+      } else {
+        dd('File does not exists.');
+      }
+      $data->delete();
+    return redirect()
+        ->route('data_siswa_admin')
+        ->with([
+          'success' => 'Sukses, Data Telah Dihapus !'
+        ]);
+      }catch (\Exception $e) {
+        return redirect()
+          ->back()
+          ->withInput()
+          ->with([
+            'error' => 'Error, Data Anda Gagal Dihapus !'
+          ]);
+      }
+  }
+  public function data_siswa_admin_utama_hapus(Request $request){
+    $data=UserDetail::where('id_user_detail','=',$request->id)->first();
+    try {
+      if (File::exists(public_path('storage/ijazah/' . $data->ijazah))) {
+        File::delete(public_path('storage/ijazah/' . $data->ijazah));
+        File::delete(public_path('storage/skhun/' . $data->skhun));
+        File::delete(public_path('storage/kk/' . $data->kk));
+        File::delete(public_path('storage/akta_kelahiran/' . $data->akta_kelahiran));
+        File::delete(public_path('storage/foto/' . $data->foto));
+        File::delete(public_path('storage/surat_keterangan_lulus/' . $data->surat_keterangan_lulus));
+      } else {
+        dd('File does not exists.');
+      }
+      $data->delete();
+    return redirect()
+        ->route('data_siswa_admin_utama')
+        ->with([
+          'success' => 'Sukses, Data Telah Dihapus !'
+        ]);
+      }catch (\Exception $e) {
+        return redirect()
+          ->back()
+          ->withInput()
+          ->with([
+            'error' => 'Error, Data Anda Gagal Dihapus !'
+          ]);
+      }
+  }
   public function data_siswa_admin_edit(Request $request){
     $user_siswa=User::where('id','=',$request->id)->join('user_detail', 'user.id', '=', 'user_detail.id_user_detail')->first();
     return view('admin.formulir_edit', compact('user_siswa'));

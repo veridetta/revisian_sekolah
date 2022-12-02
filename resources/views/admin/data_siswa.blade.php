@@ -204,7 +204,7 @@
                                 <i class="fas fa-edit"></i>
                               </a>
                             </td>
-                            <td><a href="data_siswa/edit/{{$user_siswa->id_user_detail}}" class="btn btn-warning">Edit Data</a></td>
+                            <td><a href="data_siswa/edit/{{$user_siswa->id_user_detail}}" class="btn btn-warning">Edit Data</a>  <a href="data_siswa/hapus/{{$user_siswa->id_user_detail}}" class="btn btn-warning">Hapus Data</a> </td>
                             <td> <?php if($user_siswa->id_status_verifikasi == 1 ){?>
                               <i class="fas fa-times text-danger"></i>
                               <?php } else{?>

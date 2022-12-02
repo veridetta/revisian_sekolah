@@ -58,6 +58,7 @@ Route::post('/admin_utama/atur_verifikasi_admin', [DataPanitiaController::class,
 
 Route::get('/admin/data_siswa', [DataSiswaController::class, 'data_siswa_admin'])->name('data_siswa_admin');
 Route::get('/admin/data_siswa/edit/{id}', [DataSiswaController::class, 'data_siswa_admin_edit'])->name('data_siswa_admin_edit');
+Route::get('/admin/data_siswa/hapus/{id}', [DataSiswaController::class, 'data_siswa_admin_hapus'])->name('data_siswa_admin_hapus');
 Route::post('/admin/atur_kelas', [DataSiswaController::class, 'update_siswa']);
 Route::post('/admin/atur_status_data', [DataSiswaController::class, 'update_status_data']);
 Route::post('/admin/data_siswa_delete', [DataSiswaController::class, 'delete_siswa']);
@@ -68,6 +69,7 @@ Route::get('/admin/filter-report/export', [DataSiswaController::class, 'export_f
 
 Route::get('/admin_utama/data_siswa', [DataSiswaController::class, 'data_siswa_admin_utama'])->name('data_siswa_admin_utama');
 Route::get('/admin_utama/data_siswa/edit/{id}', [DataSiswaController::class, 'data_siswa_admin_utama_edit'])->name('data_siswa_admin_utama_edit');
+Route::get('/admin_utama/data_siswa/hapus/{id}', [DataSiswaController::class, 'data_siswa_admin_utama_hapus'])->name('data_siswa_admin_utama_hapus');
 
 Route::post('/admin_utama/atur_kelas', [DataSiswaController::class, 'update_siswa_admin_utama']);
 Route::post('/admin_utama/atur_status_data', [DataSiswaController::class, 'update_status_data_admin_utama']);
@@ -93,6 +95,7 @@ Route::get('/siswa/formulir/edit/{id}', [FormulirController::class, 'form_edit']
 
 Route::post('/formulir_proses', [FormulirController::class, 'formulir_proses']);
 Route::post('/form_edit_proses', [FormulirController::class, 'form_edit_proses']);
+Route::get('/form_hapus', [FormulirController::class, 'form_hapus']);
 
 Route::get('/siswa/cetak_kwitansi', [CetakDokumenController::class, 'cetak_kwitansi']);
 

@@ -62,7 +62,7 @@
                             <center>
                                 <h2>Formulir Anda Berhasil Di Simpan</h2>
                                 <div class="text-center">
-                                    <a href="/siswa/formulir/edit/{{$user_siswa->id_user_detail}}" class="btn btn-primary">Edit Data</a> <a href="#" class="btn btn-danger">Hapus Data</a>
+                                    <a href="/siswa/formulir/edit/{{$user_siswa->id_user_detail}}" class="btn btn-primary">Edit Data</a> <a href="data_siswa/hapus/{{$user_siswa->id_user_detail}}" class="btn btn-danger">Hapus Data</a> 
                                 </div>
                                 <br>
                                 <img src="{{ asset('public/assets/img/berhasil.png') }}" alt="" width="500px">
