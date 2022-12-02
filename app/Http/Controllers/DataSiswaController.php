@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserDetail;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Http\Request;
@@ -30,15 +31,17 @@ class DataSiswaController extends Controller
         ->where('id_user_level', '=', 2)
         ->where('id_status_terdaftar', '=', 2)
         ->get();
-
-      $data_kelas = DB::table('user_detail', 'ud1')
-        ->select(DB::raw('
-        kelas, (SELECT count(iduserdetailinc) FROM user_detail ud2 WHERE jenis_kelamin = "Laki-Laki" AND ud2.kelas = ud1.kelas) as jml_laki, (SELECT count(iduserdetailinc) FROM user_detail ud3 WHERE jenis_kelamin = "Perempuan" AND ud3.kelas = ud1.kelas) as jml_perempuan,(SELECT count(iduserdetailinc) FROM user_detail ud4 WHERE agama = "Kristen" AND ud4.agama = ud1.agama) as jml_kristen,(SELECT count(iduserdetailinc) FROM user_detail ud5 WHERE agama = "Islam" AND ud5.agama = ud1.agama) as jml_islam,(SELECT count(iduserdetailinc) FROM user_detail ud6 WHERE agama = "Katolik" AND ud6.agama = ud1.agama) as jml_katolik,(SELECT count(iduserdetailinc) FROM user_detail ud7 WHERE agama = "Hindu" AND ud7.agama = ud1.agama) as jml_hindu,(SELECT count(iduserdetailinc) FROM user_detail ud8 WHERE agama = "Buddha" AND ud8.agama = ud1.agama) as jml_buddha,(SELECT count(iduserdetailinc) FROM user_detail ud9 WHERE agama = "Konghucu" AND ud9.agama = ud1.agama) as jml_konghucu
-        '))
-        ->where('kelas', '!=', null)
-        ->groupByRaw('ud1.kelas')
-        ->orderBy('ud1.kelas',  'ASC')
-        ->get();
+        //$jk = UserDetail::groupBy('kelas')->selectRaw('*, sum(jenis_kelamin) as sum')->get();
+        $data_kelas = UserDetail::groupBy('kelas')->where('kelas','!=',NULL)->get( array('kelas',
+          DB::raw("SUM(jenis_kelamin = 'Laki-Laki') AS jml_laki"),
+          DB::raw("SUM(jenis_kelamin = 'Perempuan') AS jml_perempuan"),
+          DB::raw("SUM(agama = 'Kristen') AS jml_kristen"),
+          DB::raw("SUM(agama = 'Katholik') AS jml_katolik"),
+          DB::raw("SUM(agama = 'Islam') AS jml_islam"),
+          DB::raw("SUM(agama = 'Hindu') AS jml_hindu"),
+          DB::raw("SUM(agama = 'Buddha') AS jml_buddha"),
+          DB::raw("SUM(agama = 'Kong Hu Cu') AS jml_konghucu"),
+        ));
       return view('admin.data_siswa', compact('user_siswas', 'data_kelas'));
     } else {
       return redirect()
@@ -58,14 +61,16 @@ class DataSiswaController extends Controller
         ->where('id_status_terdaftar', '=', 2)
         ->get();
 
-      $data_kelas = DB::table('user_detail', 'ud1')
-        ->select(DB::raw('
-        kelas, (SELECT count(iduserdetailinc) FROM user_detail ud2 WHERE jenis_kelamin = "Laki-Laki" AND ud2.kelas = ud1.kelas) as jml_laki, (SELECT count(iduserdetailinc) FROM user_detail ud3 WHERE jenis_kelamin = "Perempuan" AND ud3.kelas = ud1.kelas) as jml_perempuan,(SELECT count(iduserdetailinc) FROM user_detail ud4 WHERE agama = "Kristen" AND ud4.agama = ud1.agama) as jml_kristen,(SELECT count(iduserdetailinc) FROM user_detail ud5 WHERE agama = "Islam" AND ud5.agama = ud1.agama) as jml_islam,(SELECT count(iduserdetailinc) FROM user_detail ud6 WHERE agama = "Katolik" AND ud6.agama = ud1.agama) as jml_katolik,(SELECT count(iduserdetailinc) FROM user_detail ud7 WHERE agama = "Hindu" AND ud7.agama = ud1.agama) as jml_hindu,(SELECT count(iduserdetailinc) FROM user_detail ud8 WHERE agama = "Buddha" AND ud8.agama = ud1.agama) as jml_buddha,(SELECT count(iduserdetailinc) FROM user_detail ud9 WHERE agama = "Konghucu" AND ud9.agama = ud1.agama) as jml_konghucu
-        '))
-        ->where('kelas', '!=', null)
-        ->groupByRaw('ud1.kelas')
-        ->orderBy('ud1.kelas',  'ASC')
-        ->get();
+        $data_kelas = UserDetail::groupBy('kelas')->where('kelas','!=',NULL)->get( array('kelas',
+        DB::raw("SUM(jenis_kelamin = 'Laki-Laki') AS jml_laki"),
+        DB::raw("SUM(jenis_kelamin = 'Perempuan') AS jml_perempuan"),
+        DB::raw("SUM(agama = 'Kristen') AS jml_kristen"),
+        DB::raw("SUM(agama = 'Katholik') AS jml_katolik"),
+        DB::raw("SUM(agama = 'Islam') AS jml_islam"),
+        DB::raw("SUM(agama = 'Hindu') AS jml_hindu"),
+        DB::raw("SUM(agama = 'Buddha') AS jml_buddha"),
+        DB::raw("SUM(agama = 'Kong Hu Cu') AS jml_konghucu"),
+      ));
       return view('admin_utama.data_siswa', compact('user_siswas', 'data_kelas'));
     } else {
       return redirect()

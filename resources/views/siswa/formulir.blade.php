@@ -139,8 +139,8 @@
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="agama" id="inlineRadio1"
-                                            value="Khatolik" required>
-                                        <label class="form-check-label" for="inlineRadio1">Khatolik</label>
+                                            value="Katholik" required>
+                                        <label class="form-check-label" for="inlineRadio1">Katholik</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="agama" id="inlineRadio2"
@@ -358,8 +358,8 @@
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="agama_ayah"
-                                                id="inlineRadio1" value="Khatolik" required>
-                                            <label class="form-check-label" for="inlineRadio1">Khatolik</label>
+                                                id="inlineRadio1" value="Katholik" required>
+                                            <label class="form-check-label" for="inlineRadio1">Katholik</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="agama_ayah"
@@ -434,8 +434,8 @@
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="agama_ibu"
-                                                id="inlineRadio1" value="Khatolik" required>
-                                            <label class="form-check-label" for="inlineRadio1">Khatolik</label>
+                                                id="inlineRadio1" value="Katholik" required>
+                                            <label class="form-check-label" for="inlineRadio1">Katholik</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="agama_ibu"
