@@ -11,34 +11,6 @@ use Illuminate\Support\Facades\File;
 
 class FormulirController extends Controller
 {
-  public function form_hapus(Request $request){
-    $data=UserDetail::where('id_user_detail','=',$request->id)->first();
-    try {
-      if (File::exists(public_path('storage/ijazah/' . $data->ijazah))) {
-        File::delete(public_path('storage/ijazah/' . $data->ijazah));
-        File::delete(public_path('storage/skhun/' . $data->skhun));
-        File::delete(public_path('storage/kk/' . $data->kk));
-        File::delete(public_path('storage/akta_kelahiran/' . $data->akta_kelahiran));
-        File::delete(public_path('storage/foto/' . $data->foto));
-        File::delete(public_path('storage/surat_keterangan_lulus/' . $data->surat_keterangan_lulus));
-      } else {
-        //dd('File does not exists.');
-      }
-      $data->delete();
-    return redirect()
-        ->route('siswa')
-        ->with([
-          'success' => 'Sukses, Data Telah Dihapus !'
-        ]);
-      }catch (\Exception $e) {
-        return redirect()
-          ->back()
-          ->withInput()
-          ->with([
-            'error' => 'Error, Data Anda Gagal Dihapus !'
-          ]);
-      }
-  }
   public function form_edit(Request $request){
     $user_siswa=User::where('id','=',session()->get('id'))->join('user_detail', 'user.id', '=', 'user_detail.id_user_detail')->first();
     return view('siswa.formulir_edit', compact('user_siswa'));
@@ -246,12 +218,8 @@ class FormulirController extends Controller
   {
 
     if (session()->get('loggin') == true) {
-      $user_siswas = DB::table('user')
-        ->join('user_detail', 'user.id', '=', 'user_detail.id_user_detail')
-        ->where('id_user_level', '=', 2)
-        ->where('id', '=', session()->get('id'))
-        ->get();
-      return view('siswa.formulir', compact('user_siswas'));
+      $user_siswa=User::where('id','=',session()->get('id'))->join('user_detail', 'user_detail.id_user_detail', '=', 'user.id')->first();
+      return view('siswa.formulir', compact('user_siswa'));
     } else {
       return redirect()
         ->route('login_web')
